@@ -1,48 +1,61 @@
 public class FormatadorPadrao {
-	String string = "";
 	String primeiraLetra = "";
 	String frase = "";
-
-	public String formatar(String string) {
-		primeiraLetra = "" + string.charAt(0);
+	
+	/**
+	 * Método para Formatar frases digitadas pelo
+	 * usuário colocando num padrão adotado pelo
+	 * sistema.
+	 * @param fraseOriginal
+	 * @return frase
+	 */
+	public String formatar(String fraseOriginal) {
+		//Se for N.A. , N.E. , A/C , A/I não fazer nada e retornar
+		//a frase original mesmo.
+		if((fraseOriginal.equals("N.A.")) || (fraseOriginal.equals("N.E."))
+				|| (fraseOriginal.equals("A/C")) || (fraseOriginal.equals("A/I"))){
+			return fraseOriginal;
+		}
+		//Tratando logo a primeira letra
+		primeiraLetra = "" + fraseOriginal.charAt(0);
 		frase = primeiraLetra.toUpperCase();
 		// Meu primeiro passo foi varrer toda a frase
 		// em busca de espaços em brancos
 		// onde tiver espaço em branco ele marca
 		// como true
 		boolean[] espaco;
-		espaco = new boolean[string.length()];
-		for (int i = 1; i < string.length(); i++) {
-			String letra = "" + string.charAt(i);
+		espaco = new boolean[fraseOriginal.length()];
+		for (int i = 1; i < fraseOriginal.length(); i++) {
+			String letra = "" + fraseOriginal.charAt(i);
 			if (letra.equals(" ")) {
 				espaco[i] = true;
 			} else {
 				espaco[i] = false;
 			}
 		}
-		for (int i = 1; i < string.length(); i++) {
-			String letra = "" + string.charAt(i);
+		for (int i = 1; i < fraseOriginal.length(); i++) {
+			String letra = "" + fraseOriginal.charAt(i);
 			// Se a próxima letra for um espaço em
 			// branco
 			if (espaco[i] == true) {
 				if (espaco[i + 1] == true) {
 					if (espaco[i + 2] == true) {
 						// bloco para 3 espaços em branco
-						String maiuscula = "" + string.charAt(i + 3);
+						String maiuscula = "" + fraseOriginal.charAt(i + 3);
 						maiuscula = maiuscula.toUpperCase();
 						frase = frase + " " + maiuscula;
 						i = i + 3;
 
 					} else {
 						// bloco para 2 espaços em branco
-						String maiuscula = "" + string.charAt(i + 2);
+						String maiuscula = "" + fraseOriginal.charAt(i + 2);
 						maiuscula = maiuscula.toUpperCase();
 						frase = frase + " " + maiuscula;
 						i = i + 2;
 					}
 				} else {
 					// bloco para 1 espaço em branco
-					String maiuscula = "" + string.charAt(i + 1);
+					String maiuscula = "" + fraseOriginal.charAt(i + 1);
 					maiuscula = maiuscula.toUpperCase();
 					frase = frase + " " + maiuscula;
 					i = i + 1;
@@ -51,7 +64,7 @@ public class FormatadorPadrao {
 			} else {
 				// Se a próxima letra não for espaço
 				if (!(letra.equals(" "))) {
-					String minuscula = "" + string.charAt(i);
+					String minuscula = "" + fraseOriginal.charAt(i);
 					minuscula = minuscula.toLowerCase();
 					frase = frase + minuscula;
 				}
@@ -59,10 +72,11 @@ public class FormatadorPadrao {
 		}
 		return frase;
 	}
-
+	//Método main para testar os metodos
+	//acima
 	public static void main(String[] args) {
 		FormatadorPadrao fmt = new FormatadorPadrao();
-		System.out.println(fmt.formatar("TESTE   DO   METODO"));
+		System.out.println(fmt.formatar("TESTE   DO   MÉTODO"));
 
 	}
 
