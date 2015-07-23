@@ -1,22 +1,23 @@
 public class FormatadorPadrao {
 	String primeiraLetra = "";
 	String frase = "";
-	
+
 	/**
-	 * Método para Formatar frases digitadas pelo
-	 * usuário colocando num padrão adotado pelo
-	 * sistema.
+	 * Método para Formatar frases digitadas pelo usuário colocando num padrão
+	 * adotado pelo sistema.
+	 * 
 	 * @param fraseOriginal
 	 * @return frase
 	 */
 	public String formatar(String fraseOriginal) {
-		//Se for N.A. , N.E. , A/C , A/I não fazer nada e retornar
-		//a frase original mesmo.
-		if((fraseOriginal.equals("N.A.")) || (fraseOriginal.equals("N.E."))
-				|| (fraseOriginal.equals("A/C")) || (fraseOriginal.equals("A/I"))){
+		// Se for N.A. ou N.E. não fazer nada e retornar
+		// a frase original mesmo.
+		if ((fraseOriginal.equals("N.A.")) || (fraseOriginal.equals("N.E."))
+				|| (fraseOriginal.equals("A/C"))
+				|| (fraseOriginal.equals("A/I"))) {
 			return fraseOriginal;
 		}
-		//Tratando logo a primeira letra
+		// Tratando logo a primeira letra
 		primeiraLetra = "" + fraseOriginal.charAt(0);
 		frase = primeiraLetra.toUpperCase();
 		// Meu primeiro passo foi varrer toda a frase
@@ -38,9 +39,20 @@ public class FormatadorPadrao {
 			// Se a próxima letra for um espaço em
 			// branco
 			if (espaco[i] == true) {
+				//Se o espaço branco for a
+				//última letra de o break
+				if(fraseOriginal.length()==i+1){
+					break;
+				}
 				if (espaco[i + 1] == true) {
+					if(fraseOriginal.length()==i+2){
+						break;
+					}
 					if (espaco[i + 2] == true) {
 						// bloco para 3 espaços em branco
+						if(fraseOriginal.length()==i+3){
+							break;
+						}
 						String maiuscula = "" + fraseOriginal.charAt(i + 3);
 						maiuscula = maiuscula.toUpperCase();
 						frase = frase + " " + maiuscula;
@@ -71,13 +83,6 @@ public class FormatadorPadrao {
 			}
 		}
 		return frase;
-	}
-	//Método main para testar os metodos
-	//acima
-	public static void main(String[] args) {
-		FormatadorPadrao fmt = new FormatadorPadrao();
-		System.out.println(fmt.formatar("TESTE   DO   MÉTODO"));
-
 	}
 
 }
